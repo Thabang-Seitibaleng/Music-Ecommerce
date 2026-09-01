@@ -1,5 +1,6 @@
 import app from './app';
 import sequelize from '@config/database';
+import { setupAssociations } from '@models/associations';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 5001;
 const startServer = async () => {
   try {
     // Verify database connectivity
+    setupAssociations();
     await sequelize.authenticate();
     console.log('Database connection established successfully.');
 
