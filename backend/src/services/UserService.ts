@@ -36,7 +36,7 @@ export class UserService {
       throw { statusCode: 401, message: "Invalid email or password" };
     }
 
-    const secret = process.env.JWT_SECRET || "super_secret_jwt_key_here";
+    const secret = process.env.JWT_SECRET || 'fallback_secret';
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       secret,
