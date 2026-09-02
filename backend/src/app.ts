@@ -7,7 +7,8 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { generateOpenApiDocumentation } from '@utils/swagger';
 import userRoutes from "@routes/UserRoutes";
-
+import productRoutes from "@routes/ProductRoutes";
+import orderRoutes from "@routes/OrderRoutes";
 class App {
   public app: Application;
 
@@ -39,6 +40,8 @@ class App {
     this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     this.app.use("/api/auth", userRoutes);
+    this.app.use("/api/products", productRoutes);
+    this.app.use("/api/orders", orderRoutes);
   }
 
   private configureErrorHandling(): void {
