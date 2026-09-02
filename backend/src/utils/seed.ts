@@ -1,10 +1,10 @@
 import sequelize from '@config/database';
 import { UserRepository } from '@repositories/UserRepository';
+import Product from '../models/Product';
 import bcrypt from 'bcryptjs';
 
 const seedDatabase = async () => {
   try {
-    // Ensure the database connection is active and models are synced
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
 
@@ -43,6 +43,19 @@ const seedDatabase = async () => {
       console.log(`Customer account created: ${customerEmail}`);
     } else {
       console.log(`Customer account already exists: ${customerEmail}`);
+    }
+
+    // Seed Products Catalog
+    const productCount = await Product.count();
+    if (productCount === 0) {
+      await Product.bulkCreate([
+        { title: 'Wireless Mechanical Keyboard', price: 120.00, stockQuantity: 15 },
+        { title: 'Ergonomic Gaming Mouse', price: 59.99, stockQuantity: 30 },
+        { title: 'Ultra-Wide 27-inch Monitor', price: 349.99, stockQuantity: 8 }
+      ]);
+      console.log('Default products seeded successfully!');
+    } else {
+      console.log('Products already exist in the database.');
     }
 
     console.log('Database seeding completed successfully!');
