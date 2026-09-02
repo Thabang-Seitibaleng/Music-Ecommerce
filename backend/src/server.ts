@@ -15,7 +15,7 @@ const startServer = async () => {
     console.log('Database connection established successfully.');
 
     // Automatically sync models (using { alter: true } safely updates tables during development sprints)
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     console.log('Database models synchronized.');
 
     app.listen(PORT, () => {
