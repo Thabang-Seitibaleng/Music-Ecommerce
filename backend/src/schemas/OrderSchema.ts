@@ -13,11 +13,20 @@ export const OrderResponseSchema = z.object({
 
 registry.register('Order', OrderResponseSchema);
 
+const ValidatedProductSchema = z.object({
+  quantity: z.number(),
+  product: z.object({
+    id: z.number(),
+    price: z.number(),
+  }),
+});
+
 registry.registerPath({
   method: 'post',
   path: '/api/orders/checkout',
   tags: ['Orders'],
-description: 'Process a new order and create order items',
+  description: 'Process a new order and create order items',
+  security: [{ bearerAuth: [] }],
   request: {
     body: {
       content: {
@@ -25,6 +34,7 @@ description: 'Process a new order and create order items',
           schema: z.object({
             userId: z.number(),
             totalAmount: z.number(),
+            validatedProducts: z.array(ValidatedProductSchema),
           }),
         },
       },
