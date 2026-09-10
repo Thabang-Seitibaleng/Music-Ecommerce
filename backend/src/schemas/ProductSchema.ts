@@ -11,7 +11,6 @@ export const ProductResponseSchema = z.object({
   stockQuantity: z.number(),
 }).openapi('Product');
 
-// Strict validation logic split into its proper architectural layer
 export const ProductQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional(),
   limit: z.coerce.number().int().positive().optional(),

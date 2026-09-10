@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
-import Product from '../models/Product';
 import { ProductQuerySchema } from '../schemas/ProductSchema';
+import ProductRepository from '../repositories/ProductRepository'; // 👈 Import the repository
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -23,11 +23,7 @@ export const getProducts = async (req: Request, res: Response) => {
       if (validatedQuery.maxPrice) whereClause.price[Op.lte] = validatedQuery.maxPrice;
     }
 
-    const { count, rows } = await Product.findAndCountAll({
-      where: whereClause,
-      limit,
-      offset,
-    });
+    const { count, rows } = await ProductRepository.findAllWithPagination(whereClause, limit, offset);
 
     res.status(200).json({
       totalItems: count,
@@ -42,8 +38,8 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    // Wrapped req.params.id in Number() to fix TypeScript mismatch
-    const product = await Product.findByPk(Number(req.params.id));
+    // 👈 Call the repository
+    const product = await ProductRepository.findById(Number(req.params.id));
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
@@ -55,7 +51,7 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const product = await Product.create(req.body);
+    const product = await ProductRepository.create(req.body);
     res.status(201).json(product);
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error' });
@@ -64,12 +60,10 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
-    // Wrapped req.params.id in Number() to fix TypeScript mismatch
-    const product = await Product.findByPk(Number(req.params.id));
+    const product = await ProductRepository.update(Number(req.params.id), req.body);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    await product.update(req.body);
     res.status(200).json(product);
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error' });
@@ -78,12 +72,10 @@ export const updateProduct = async (req: Request, res: Response) => {
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
-    // Wrapped req.params.id in Number() to fix TypeScript mismatch
-    const product = await Product.findByPk(Number(req.params.id));
-    if (!product) {
+    const success = await ProductRepository.delete(Number(req.params.id));
+    if (!success) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    await product.destroy();
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error' });
