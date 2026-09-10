@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi'; // 1. Add this import
 import { registry } from '@utils/swagger';
 
-extendZodWithOpenApi(z); // 2. Call this immediately to inject .openapi() into Zod
+extendZodWithOpenApi(z); 
 
 export const ProductResponseSchema = z.object({
   id: z.number(),

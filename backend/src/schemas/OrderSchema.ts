@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { extendZodWithOpenApi } from '@asteasolutions/zod-to-openapi';
 import { registry } from '@utils/swagger';
 
-extendZodWithOpenApi(z); // Inject .openapi() immediately
+extendZodWithOpenApi(z); 
 
 export const OrderResponseSchema = z.object({
   id: z.number(),
@@ -11,7 +11,8 @@ export const OrderResponseSchema = z.object({
   status: z.string(),
 }).openapi('Order');
 
-// Register the Swagger UI path
+registry.register('Order', OrderResponseSchema);
+
 registry.registerPath({
   method: 'post',
   path: '/api/orders/checkout',
