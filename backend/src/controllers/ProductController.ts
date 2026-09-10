@@ -1,22 +1,12 @@
 import { Request, Response } from 'express';
 import { Op } from 'sequelize';
 import Product from '../models/Product';
-import { z } from 'zod';
-
-const ProductQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional(),
-  limit: z.coerce.number().int().positive().optional(),
-  category: z.string().optional(),
-  minPrice: z.coerce.number().nonnegative().optional(),
-  maxPrice: z.coerce.number().nonnegative().optional(),
-});
+import { ProductQuerySchema } from '../schemas/ProductSchema';
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    // 2. Run the incoming URL parameters through our Zod validation
     const validatedQuery = ProductQuerySchema.parse(req.query);
 
-    // 3. Use the safe, validated data instead of raw req.query
     const page = validatedQuery.page || 1;
     const limit = validatedQuery.limit || 10;
     const offset = (page - 1) * limit;
@@ -46,7 +36,56 @@ export const getProducts = async (req: Request, res: Response) => {
       products: rows,
     });
   } catch (error) {
-    // If Zod validation fails, it throws an error that we catch here
     res.status(400).json({ message: 'Invalid search parameters' });
+  }
+};
+
+export const getProductById = async (req: Request, res: Response) => {
+  try {
+    // Wrapped req.params.id in Number() to fix TypeScript mismatch
+    const product = await Product.findByPk(Number(req.params.id));
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export const createProduct = async (req: Request, res: Response) => {
+  try {
+    const product = await Product.create(req.body);
+    res.status(201).json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export const updateProduct = async (req: Request, res: Response) => {
+  try {
+    // Wrapped req.params.id in Number() to fix TypeScript mismatch
+    const product = await Product.findByPk(Number(req.params.id));
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    await product.update(req.body);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    // Wrapped req.params.id in Number() to fix TypeScript mismatch
+    const product = await Product.findByPk(Number(req.params.id));
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    await product.destroy();
+    res.status(204).send();
+  } catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };
