@@ -1,0 +1,10 @@
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser, registerUser } from '../services/authService';
+import type { AuthResponse } from '../types';
+
+export default function AuthPage({ onLogin }: { onLogin: (response: AuthResponse) => void }) {
+  const [isRegistering, setIsRegistering] = useState(false); const [error, setError] = useState(''); const [loading, setLoading] = useState(false); const navigate = useNavigate();
+  const submit = async (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); const form = new FormData(event.currentTarget); setError(''); setLoading(true); try { if (isRegistering) { await registerUser(String(form.get('name')), String(form.get('email')), String(form.get('password'))); setIsRegistering(false); setError('Account created. Please sign in.'); } else { const response = await loginUser(String(form.get('email')), String(form.get('password'))); onLogin(response); navigate('/'); } } catch (err) { setError(err instanceof Error ? err.message : 'Unable to continue.'); } finally { setLoading(false); } };
+  return <main className="auth-page"><form className="auth-card" onSubmit={submit}><p className="eyebrow">Welcome</p><h1>{isRegistering ? 'Create an account' : 'Sign in'}</h1><p>{isRegistering ? 'Save your details for a simpler checkout.' : 'Sign in to your Plain account.'}</p>{error && <p className="form-message" role="alert">{error}</p>}{isRegistering && <label>Name<input name="name" minLength={2} required /></label>}<label>Email address<input name="email" type="email" required /></label><label>Password<input name="password" type="password" minLength={6} required /></label><button className="button full-button" disabled={loading}>{loading ? 'Please wait…' : isRegistering ? 'Create account' : 'Sign in'}</button><button className="text-button switch-auth" type="button" onClick={() => { setIsRegistering(!isRegistering); setError(''); }}>{isRegistering ? 'Already have an account? Sign in' : 'New here? Create an account'}</button></form></main>;
+}

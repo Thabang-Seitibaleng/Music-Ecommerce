@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700">
+  <rect width="700" height="700" fill="#eee1c7"/>
+  <text x="44" y="69" fill="#343f32" font-family="Arial,sans-serif" font-size="25" font-weight="700">REC. 07 / JUNE &amp; THE SATELLITES</text>
+  <circle cx="350" cy="323" r="190" fill="#d57754"/>
+  <path d="M44 423 Q200 243 350 423 T656 423 V552 H44Z" fill="#8c9d76"/>
+  <path d="M44 482 Q220 362 390 482 T656 482 V552 H44Z" fill="#343f32"/>
+  <text x="44" y="630" fill="#343f32" font-family="Arial,sans-serif" font-size="57" font-weight="700" letter-spacing="-3">SOFT LANDING</text>
+</svg>
