@@ -8,7 +8,10 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "seed": "ts-node -r tsconfig-paths/register src/utils/seed.ts",
-    "test": "jest --runInBand --detectOpenHandles"
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:unit": "jest src/__tests__/unit --runInBand",
+    "test:integration": "jest src/__tests__/integration --runInBand",
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
