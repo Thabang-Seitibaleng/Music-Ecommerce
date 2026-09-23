@@ -27,3 +27,18 @@ export const authenticate = (req: AuthenticatedRequest, res: Response, next: Nex
     return res.status(403).json({ status: 'fail', message: 'Invalid or expired token.' });
   }
 };
+
+// Role-Based Access Control Middleware
+export const authorize = (allowedRoles: string[]) => {
+  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+    if (!req.user || !req.user.role) {
+      return res.status(403).json({ status: 'fail', message: 'Access denied. User role undefined.' });
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({ status: 'fail', message: 'Access denied. Insufficient permissions.' });
+    }
+
+    next();
+  };
+};

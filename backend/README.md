@@ -1,52 +1,91 @@
-## SEN371 E-Commerce Backend
+# SEN 371: Full-Stack E-Commerce Web Application
 
-This is the core Node.js/TypeScript backend for the SEN371 E-Commerce web application. It features a MySQL database configured with Sequelize, JWT authentication, and automated Swagger documentation.
+A robust, scalable backend API for a cross-platform e-commerce web application. Built with a decoupled Model-View-Controller (MVC) architecture, this system emphasizes secure authentication, transactional relational data management, and strict TypeScript validation.
 
-### 1. Prerequisites
+## Team Members
 
-Before cloning this repository, ensure you have the following installed on your machine:
-
-* Node.js
-* Docker Desktop (must be running in the background)
-
-### 2. Environment & Database Setup
-
-We use a containerized MySQL instance for isolated local development.
-
-1. Copy the environment template to create your local `.env` file:
-```bash
-cp .env.example .env
-
-```
+* Kelly Tiedt – 602730
 
 
-2. Install the project dependencies:
+* Jacobus Wilhelm de Jager – 6018948
+
+
+* Thabang Donald Seitibaleng – 600525
+
+
+* Thapelo Mphahlele – 577876
+
+
+
+## Tech Stack
+
+* **Runtime & Framework:** Node.js, Express.js
+
+
+* **Language:** TypeScript
+
+
+* **Database & ORM:** MySQL, Sequelize
+
+
+* **Security:** JWT (JSON Web Tokens), bcryptjs, Helmet, HPP, CORS
+
+
+* **Validation:** Zod
+
+
+* **Testing:** Jest, Supertest
+
+
+* **Documentation:** Swagger UI, Zod-to-OpenAPI
+
+
+
+## Architecture & Features
+
+* **Layered Design:** Separates routes, controllers, services, and data access (repositories) for high maintainability.
+* **Authentication & RBAC:** Stateless JWT strategy with Role-Based Access Control (Admin vs. Customer).
+
+
+* **Relational Schema:** Fully mapped e-commerce entities (`User`, `Product`, `Order`, `OrderItem`) with automated `sync`.
+
+
+* **Automated Documentation:** Live interactive Swagger UI generated dynamically from Zod schemas.
+
+
+
+## Prerequisites
+
+* **Node.js** (v18 or higher recommended)
+* **MySQL** database server (running locally or via Docker on port 3307 by default)
+
+
+
+## Installation & Setup
+
+1. **Clone the repository and install dependencies:**
 ```bash
 npm install
 
 ```
 
 
-3. Spin up the local MySQL database in the background:
-```bash
-docker compose up -d
+2. **Environment Configuration:**
+Create a `.env` file in the root directory and configure your local MySQL credentials:
+```env
+PORT=5001
+DB_NAME=sen371_ecommerce
+DB_USER=root
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=3307
+JWT_SECRET=your_super_secret_key
 
 ```
 
 
-
-### 3. Running & Seeding
-
-Once the database container is running, you can start the development server. Sequelize will automatically synchronize the models and build the tables.
-
-1. Start the backend server:
-```bash
-npm run dev
-
-```
-
-
-2. Open a new terminal tab and seed the database with test accounts:
+3. **Database Initialization & Seeding:**
+Ensure your MySQL server is running and the database `sen371_ecommerce` exists. To automatically build the tables and insert the default Admin and Customer accounts, run:
 ```bash
 npm run seed
 
@@ -54,9 +93,46 @@ npm run seed
 
 
 
-**Test Accounts:**
+## Development Commands
 
-* **Admin:** `admin@test.com` | Password: `Password123!`
-* **Customer:** `customer@test.com` | Password: `Password123!`
+* **Start Development Server:** Runs the app using `nodemon` for hot-reloading.
 
-Once running, you can view the interactive API documentation at `http://localhost:5001/docs`.
+
+```bash
+npm run dev
+
+```
+
+
+* **Run Tests:** Executes the Jest integration test suite in isolation.
+
+
+```bash
+npm test
+
+```
+
+
+* **Build for Production:** Compiles TypeScript source code to JavaScript.
+
+
+```bash
+npm run build
+
+```
+
+
+* **Start Production Server:** Runs the compiled JavaScript build.
+
+
+```bash
+npm start
+
+```
+
+
+
+## API Documentation
+
+Once the server is running, you can interact with the live API documentation by navigating to:
+`http://localhost:5001/docs`
