@@ -14,10 +14,15 @@ export const OrderResponseSchema = z.object({
 registry.register('Order', OrderResponseSchema);
 
 const ValidatedProductSchema = z.object({
-  quantity: z.number(),
+  quantity: z.coerce.number().int().positive(),
   product: z.object({
-    id: z.number(),
-    price: z.number(),
+    id: z.coerce.number().int().positive(),
+  }),
+});
+
+export const CheckoutSchema = z.object({
+  body: z.object({
+    validatedProducts: z.array(ValidatedProductSchema).min(1),
   }),
 });
 
@@ -32,8 +37,6 @@ registry.registerPath({
       content: {
         'application/json': {
           schema: z.object({
-            userId: z.number(),
-            totalAmount: z.number(),
             validatedProducts: z.array(ValidatedProductSchema),
           }),
         },

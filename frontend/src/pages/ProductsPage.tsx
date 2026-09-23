@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductGrid from '../components/ProductGrid';
-import { products } from '../data/products';
+import type { Product } from '../types';
 
-export default function ProductsPage() {
+export default function ProductsPage({ products }: { products: Product[] }) {
   const [query, setQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const categories = ['All', ...new Set(products.map(product => product.category))];

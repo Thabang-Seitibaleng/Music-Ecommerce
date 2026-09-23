@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import ProductGrid from '../components/ProductGrid';
-import { products } from '../data/products';
+import type { Product } from '../types';
 import './HomePage.css';
 
 const categories = [
@@ -12,8 +12,8 @@ const categories = [
   { name: 'Turntables', note: 'Give your records a home.' },
 ];
 
-export default function HomePage() {
-  const spotlight = products.find(product => product.id === 7) || products[0];
+export default function HomePage({ products }: { products: Product[] }) {
+  const spotlight = products.find(product => product.name === 'Soft Landing') || products[0];
 
   return (
     <main className="home-page">
@@ -57,7 +57,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="listening-section container" aria-labelledby="listening-heading">
+      {spotlight && <section className="listening-section container" aria-labelledby="listening-heading">
         <div className="listening-room">
           <Link className="spotlight-sleeve" to={`/products/${spotlight.id}`}>
             <img src={spotlight.image} alt={`${spotlight.name} by ${spotlight.artist}`} loading="lazy" />
@@ -74,7 +74,7 @@ export default function HomePage() {
           </div>
           <Link className="button" to={`/products/${spotlight.id}`}>Meet your next record ↗</Link>
         </div>
-      </section>
+      </section>}
     </main>
   );
 }

@@ -7,5 +7,5 @@ export async function request<T>(path: string, options: RequestInit = {}): Promi
   });
   const body = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(body.message || 'Something went wrong. Please try again.');
-  return body.data as T;
+  return body as T;
 }
