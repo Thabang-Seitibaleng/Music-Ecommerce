@@ -11,6 +11,8 @@ registry.registerComponent('securitySchemes', 'bearerAuth', {
 export function generateOpenApiDocumentation() {
   const generator = new OpenApiGeneratorV3(registry.definitions);
 
+  const productionUrl = process.env.RENDER_EXTERNAL_URL || '';
+
   return generator.generateDocument({
     openapi: '3.0.0',
     info: {
@@ -19,6 +21,10 @@ export function generateOpenApiDocumentation() {
       description: 'Automated API documentation powered by Zod schemas and OpenAPI',
     },
     servers: [
+      {
+        url: productionUrl,
+        description: 'Production Server (Render)',
+      },
       {
         url: 'http://localhost:5001',
         description: 'Local Development Server',
