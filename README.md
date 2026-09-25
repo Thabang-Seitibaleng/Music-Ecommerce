@@ -4,7 +4,11 @@ In this project, we demonstrate how we built a full-stack e-commerce web applica
 The project is developed using a **React and TypeScript frontend**, a **Node.js and Express backend**, and a **MySQL database**, with RESTful APIs connecting the different layers of the application.
 
 
-# 🌐 GitHub Pages Link
+# 🌐 Live Deployment
+
+The frontend is deployed using **GitHub Pages**.
+
+**Live Website:**  
 https://cheeky18butterfly.github.io/SEN371-Ecommerce/
 
 
@@ -71,12 +75,7 @@ The system is developed collaboratively using Git and GitHub, with the frontend 
 └─────────────────────────────┘
 ```
 
-# 🌐 Live Deployment
 
-The frontend is deployed using **GitHub Pages**.
-
-**Live Website:**  
-https://cheeky18butterfly.github.io/SEN371-Ecommerce/
 
 # 🌿 Git Branches
 
