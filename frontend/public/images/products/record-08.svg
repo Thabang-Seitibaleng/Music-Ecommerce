@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700">
+  <rect width="700" height="700" fill="#262d45"/>
+  <text x="44" y="69" fill="#e7dfcf" font-family="Arial,sans-serif" font-size="25" font-weight="700">REC. 08 / LOW SIGNAL</text>
+  <g fill="#526b87"><path d="M65 132h155v165H65zM272 132h155v165H272zM479 132h155v165H479zM65 340h155v165H65zM479 340h155v165H479z"/></g>
+  <path d="M272 340h155v165H272z" fill="#e6aa6a"/>
+  <circle cx="350" cy="423" r="52" fill="#262d45"/>
+  <text x="44" y="605" fill="#e7dfcf" font-family="Arial,sans-serif" font-size="49" font-weight="700" letter-spacing="-2">NIGHT WINDOWS</text>
+  <text x="46" y="648" fill="#b6c4d2" font-family="Arial,sans-serif" font-size="17" letter-spacing="4">A RECORD FOR AFTER DARK</text>
+</svg>

@@ -7,7 +7,9 @@ interface ProductCreationAttributes extends Optional<IProduct, "id"> {}
 class Product extends Model<IProduct, ProductCreationAttributes> implements IProduct {
     declare id: number;
     declare title: string;
+    declare artist?: string;
     declare description: string;
+    declare category?: string;
     declare price: number;
     declare stockQuantity: number;
     declare readonly createdAt: Date;
@@ -25,8 +27,16 @@ Product.init(
             type: DataTypes.STRING(255),
             allowNull: false,
         },
+        artist: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
         description: {
             type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        category: {
+            type: DataTypes.STRING(100),
             allowNull: true,
         },
         price: {

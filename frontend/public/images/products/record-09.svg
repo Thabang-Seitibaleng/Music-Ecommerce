@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700">
+  <rect width="700" height="700" fill="#e6b958"/>
+  <text x="44" y="69" fill="#703b2b" font-family="Arial,sans-serif" font-size="25" font-weight="700">REC. 09 / THE DAYDREAM CLUB</text>
+  <g fill="none" stroke="#f7e8c8" stroke-width="30">
+    <path d="M120 503V335a230 230 0 0 1 460 0v168"/>
+    <path d="M180 503V335a170 170 0 0 1 340 0v168"/>
+    <path d="M240 503V335a110 110 0 0 1 220 0v168"/>
+  </g>
+  <circle cx="350" cy="335" r="48" fill="#bd5d38"/>
+  <text x="44" y="630" fill="#703b2b" font-family="Arial,sans-serif" font-size="57" font-weight="700" letter-spacing="-3">GOLDEN DAYS</text>
+</svg>

@@ -7,6 +7,9 @@ extendZodWithOpenApi(z);
 export const ProductResponseSchema = z.object({
   id: z.number(),
   title: z.string(),
+  artist: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  category: z.string().nullable().optional(),
   price: z.number(),
   stockQuantity: z.number(),
 }).openapi('Product');
