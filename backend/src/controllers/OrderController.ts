@@ -13,4 +13,13 @@ export class OrderController {
       next(error);
     }
   }
+
+  static async getUserOrders(req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const orders = await OrderRepository.getUserOrders(req.user!.id);
+      res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

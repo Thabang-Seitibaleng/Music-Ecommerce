@@ -32,6 +32,13 @@ class OrderRepository {
       throw error;
     }
   }
+
+  async getUserOrders(userId: number) {
+    return await Order.findAll({
+      where: { userId },
+      order: [['createdAt', 'DESC']],
+    });
+  }
 }
 
 export default new OrderRepository();

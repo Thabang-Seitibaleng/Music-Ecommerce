@@ -26,6 +26,9 @@ export const CheckoutSchema = z.object({
   }),
 });
 
+export const OrderListResponseSchema = z.array(OrderResponseSchema).openapi('OrderList');
+registry.register('OrderList', OrderListResponseSchema);
+
 registry.registerPath({
   method: 'post',
   path: '/api/orders/checkout',
@@ -49,6 +52,24 @@ registry.registerPath({
       content: {
         'application/json': {
           schema: OrderResponseSchema,
+        },
+      },
+    },
+  },
+});
+
+registry.registerPath({
+  method: "get",
+  path: "/api/orders",
+  tags: ["Orders"],
+  description: "Retrieve all orders for the authenticated user",
+  security: [{ bearerAuth: [] }],
+  responses: {
+    200: {
+      description: "List of user orders",
+      content: {
+        "application/json": {
+          schema: OrderListResponseSchema,
         },
       },
     },

@@ -9,5 +9,6 @@ console.log("--- ORDER SCHEMA LOADED ---", !!OrderResponseSchema);
 const router = Router();
 
 router.post("/checkout", authenticate, validate(CheckoutSchema), OrderController.checkout);
+router.get("/", authenticate, OrderController.getUserOrders);
 
 export default router;
